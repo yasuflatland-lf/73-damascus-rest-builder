@@ -1,0 +1,3 @@
+Bundle-Name: Headless SampleSB Implementation
+Bundle-SymbolicName: com.liferay.sb.test.headless.impl
+Bundle-Version: 1.0.0

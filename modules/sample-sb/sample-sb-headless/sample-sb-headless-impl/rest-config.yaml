@@ -1,0 +1,9 @@
+apiDir: "../sample-sb-headless-api/src/main/java"
+apiPackagePath: "com.liferay.sb.test.headless"
+application:
+  baseURI: "/sample-sb-headless"
+  className: "HeadlessSampleSBApplication"
+  name: "jp.co.liferay.headless.sample-sb"
+author: "Yasuyuki Takeo"
+clientDir: "../sample-sb-headless-client/src/main/java"
+testDir: "../sample-sb-headless-test/src/testIntegration/java"

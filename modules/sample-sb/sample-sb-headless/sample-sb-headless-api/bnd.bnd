@@ -1,0 +1,6 @@
+Bundle-Name: Headless SampleSB API
+Bundle-SymbolicName: com.liferay.sb.test.headless.api
+Bundle-Version: 1.0.0
+
+Export-Package: com.liferay.sb.test.headless.dto.v1_0, \
+    com.liferay.sb.test.headless.resource.v1_0

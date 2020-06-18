@@ -1,0 +1,178 @@
+components:
+  schemas:
+    Time:
+      description: Contains time data.
+      properties:
+        hours:
+          type: string
+        minutes:
+          type: string
+        ampm:
+          type: string
+      required: 
+        - hours
+        - minutes
+        - ampm
+      type: object
+    SampleSB:
+      description: Contains information about an SampleSB.
+      properties:
+        sampleSbId:
+          description: The primary key for the SampleSB entity.
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          description: SampleSB's name.
+          type: string
+        date:
+          description: Date of the SampleSB event.
+          type: string
+          pattern: ^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$
+        startTime:
+          description: Start time of the SampleSB.
+          $ref: "#/components/schemas/Time"
+        endTime:
+          description: End time of the SampleSB.
+          $ref: "#/components/schemas/Time"
+      required: 
+        - name
+      type: object
+
+openapi: 3.0.1
+info:
+  title: "Headless SampleSB"
+  version: v1.0
+  description: "API for accessing SampleSB details."
+paths:
+  "/samplesbs":
+    get:
+      operationId: getSampleSBsPage
+      tags: ["SampleSB"]
+      description: Retrieve the list of SampleSBs. Results can be paginated, filtered, searched and sorted.
+      parameters:
+        - in: query
+          name: filter
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: pageSize
+          schema:
+            format: int64
+            type: integer
+        - in: query
+          name: keywords
+          schema:
+            type: string
+        - in: query
+          name: sort
+          schema:
+            type: string
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/SampleSB"
+                type: array
+            application/xml:
+              schema:
+                items:
+                  $ref: "#/components/schemas/SampleSB"
+                type: array
+    post:
+      operationId: postSampleSB
+      tags: ["SampleSB"]
+      description: Create a new SampleSB entity.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SampleSB"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/SampleSB"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SampleSB"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SampleSB"
+  "/samplesbs/{sampleSbId}":
+    get:
+      operationId: getSampleSB
+      tags: ["SampleSB"]
+      description: Retrieves the SampleSB via its ID
+      parameters: 
+        - name: sampleSbId
+          in: path
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SampleSB"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SampleSB"
+    put:
+      operationId: putSampleSB
+      tags: ["SampleSB"]
+      description: Updates and overwrites existing SampleSB entity.
+      parameters: 
+        - name: sampleSbId
+          in: path
+          required: true
+          schema:
+            format: int64
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SampleSB"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/SampleSB"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SampleSB"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/SampleSB"   
+    delete:
+      operationId: deleteSampleSB
+      tags: ["SampleSB"]
+      description: Deletes the target office entity.
+      parameters: 
+        - name: sampleSbId
+          in: path
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        204:
+          description: ""
+          content:
+            application/json: {} 
