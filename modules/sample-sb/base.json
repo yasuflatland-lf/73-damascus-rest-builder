@@ -1,0 +1,87 @@
+{
+  "projectName": "SampleSB",
+  "packageName" : "com.liferay.sb.test",
+  "liferayVersion": "7.3",
+  "useTargetPlatform": "false",
+  "applications": [
+    {
+      "model"       : "SampleSB",
+      "title"       : "SampleSB Test",
+      "web"         : "true",
+      "asset": {
+        "assetTitleFieldName": "samplesbTitleName",
+        "assetSummaryFieldName": "samplesbSummaryName",
+        "categories": "true",
+        "discussion": "true",
+        "ratings": "true",
+        "tags": "true",
+        "relatedAssets": "true",
+        "fullContentFieldName": "samplesbfullContent",
+        "workflow": "true",
+        "generateActivity": "true",
+        "trash":"true",
+        "advancedSearch": "true",
+        "exportExcel": "true"
+      },
+      "fields": [
+        {
+          "type": "com.liferay.damascus.cli.json.fields.Long",
+          "primary":true,
+          "name": "samplesbId",
+          "title": "SampleSB Id",
+          "showFieldInView": "false",
+          "required": "true"
+        },
+        {
+          "type": "com.liferay.damascus.cli.json.fields.Varchar",
+          "name": "title",
+          "title": "Title",
+          "length": "80",
+          "showFieldInView": "true",
+          "required": "true"
+        },
+        {
+          "type": "com.liferay.damascus.cli.json.fields.Boolean",
+          "name": "samplesbBooleanStat",
+          "title": "SampleSB Boolean Stat"
+        },
+        {
+          "type": "com.liferay.damascus.cli.json.fields.DateTime",
+          "name": "samplesbDateTime",
+          "title": "SampleSB DateTime"
+        },
+        {
+          "type": "com.liferay.damascus.cli.json.fields.DocumentLibrary",
+          "name": "samplesbDocumentLibrary",
+          "title": "SampleSB DocumentLibrary"
+        },
+        {
+          "type": "com.liferay.damascus.cli.json.fields.Double",
+          "name": "samplesbDouble",
+          "title": "SampleSB Double"
+        },
+        {
+          "type": "com.liferay.damascus.cli.json.fields.Integer",
+          "name": "samplesbInteger",
+          "title": "SampleSB Integer"
+        },
+        {
+          "type": "com.liferay.damascus.cli.json.fields.RichText",
+          "name": "samplesbRichText",
+          "title": "SampleSB RichText"
+        },
+        {
+          "type": "com.liferay.damascus.cli.json.fields.Text",
+          "name": "samplesbText",
+          "title": "SampleSB Text"
+        }
+      ],
+      "customValue" : {
+        "your_own_id" : "your_custom_value_for_template_here"
+      },
+      "replacements" : {
+        "original_string_to_be_replaced" : "replacement_string"
+      }
+    }
+  ]
+}
