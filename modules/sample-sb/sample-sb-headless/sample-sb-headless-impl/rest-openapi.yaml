@@ -1,18 +1,15 @@
 components:
   schemas:
-    Time:
-      description: Contains time data.
+    DateTime:
+      description: Contains Date Time data.
       properties:
-        hours:
+        data:
           type: string
-        minutes:
-          type: string
-        ampm:
+        format:
           type: string
       required: 
-        - hours
-        - minutes
-        - ampm
+        - data
+        - format
       type: object
     SampleSB:
       description: Contains information about an SampleSB.
@@ -22,21 +19,40 @@ components:
           type: integer
           format: int64
           readOnly: true
-        name:
-          description: SampleSB's name.
+        title:
+          description: SampleSB's title.
           type: string
-        date:
-          description: Date of the SampleSB event.
+        samplesbBooleanStat:
+          description: SampleSB's samplesbBooleanStat.
+          type: boolean
+        samplesbDateTime:
+          description: SampleSB's samplesbDateTime.
+          type: string          
+        samplesbDocumentLibrary:
+          description: SampleSB's samplesbDocumentLibrary.
           type: string
-          pattern: ^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$
-        startTime:
-          description: Start time of the SampleSB.
-          $ref: "#/components/schemas/Time"
-        endTime:
-          description: End time of the SampleSB.
-          $ref: "#/components/schemas/Time"
+        samplesbDouble:
+          description: SampleSB's samplesbDouble.
+          type: number
+          format: double
+        samplesbInteger:
+          description: SampleSB's samplesbInteger.
+          type: integer
+          format: int32
+        samplesbRichText:
+          description: SampleSB's samplesbRichText.
+          type: string
+        samplesbText:
+          description: SampleSB's samplesbText.
+          type: string
+        samplesbTitleName:
+          description: SampleSB's samplesbTitleName.
+          type: string
+        samplesbSummaryName:
+          description: SampleSB's samplesbSummaryName.
+          type: string
       required: 
-        - name
+        - title
       type: object
 
 openapi: 3.0.1

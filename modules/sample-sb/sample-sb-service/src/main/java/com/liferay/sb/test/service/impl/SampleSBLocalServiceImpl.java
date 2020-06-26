@@ -65,11 +65,10 @@ import com.liferay.trash.model.TrashEntry;
 import com.liferay.trash.service.TrashEntryLocalService;
 
 import java.io.Serializable;
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -82,7 +81,6 @@ import javax.portlet.PortletRequest;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,6 +107,89 @@ import org.slf4j.LoggerFactory;
 )
 public class SampleSBLocalServiceImpl extends SampleSBLocalServiceBaseImpl {
 
+
+	/**
+	 * Add Entry
+	 * 
+	 * @param primaryKey
+	 * @param title
+	 * @param samplesbBooleanStat
+	 * @param samplesbDateTime
+	 * @param samplesbDocumentLibrary
+	 * @param samplesbDouble
+	 * @param samplesbInteger
+	 * @param samplesbRichText
+	 * @param samplesbText
+	 * @param samplesbTitleName
+	 * @param samplesbSummaryName
+	 * @param serviceContext
+	 * @return
+	 * @throws SampleSBValidateException
+	 */
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public SampleSB addEntry(long primaryKey, String title, boolean samplesbBooleanStat, String samplesbDateTime,
+			String samplesbDocumentLibrary, double samplesbDouble, int samplesbInteger, String samplesbRichText, 
+			String samplesbText, String samplesbTitleName, String samplesbSummaryName, final ServiceContext serviceContext ) 
+					throws PortalException, SampleSBValidateException {
+
+		long userId = serviceContext.getUserId();
+		
+		// Create or fetch existing data
+		SampleSB entry;
+
+		if (primaryKey <= 0) {
+			entry = getNewObject(primaryKey);
+		}
+		else {
+			entry = fetchSampleSB(primaryKey);
+		}
+
+/* TODO : Need to be tamplated */		
+        entry.setSamplesbId(primaryKey);
+        entry.setTitle(title);
+        entry.setSamplesbBooleanStat(samplesbBooleanStat);
+        entry.setSamplesbDateTime(getDateTimeFromRequest(samplesbDateTime, "yyyy/MM/dd HH:mm:ss"));
+        entry.setSamplesbDocumentLibrary(samplesbDocumentLibrary);
+        entry.setSamplesbDouble(samplesbDouble);
+        entry.setSamplesbInteger(samplesbInteger);
+        entry.setSamplesbRichText(samplesbRichText);
+        entry.setSamplesbText(samplesbText);
+
+		entry.setSamplesbTitleName(samplesbTitleName);
+		entry.setSamplesbSummaryName(samplesbSummaryName);
+
+		entry.setCompanyId(serviceContext.getCompanyId());
+		entry.setGroupId(serviceContext.getScopeGroupId());
+		entry.setUserId(serviceContext.getUserId());
+
+		// Resources
+
+		if (serviceContext.isAddGroupPermissions() ||
+			serviceContext.isAddGuestPermissions()) {
+
+			addEntryResources(
+				entry, serviceContext.isAddGroupPermissions(),
+				serviceContext.isAddGuestPermissions());
+		}
+		else {
+			addEntryResources(entry, serviceContext.getModelPermissions());
+		}
+
+		// Asset
+
+		updateAsset(
+			userId, entry, serviceContext.getAssetCategoryIds(),
+			serviceContext.getAssetTagNames(),
+			serviceContext.getAssetLinkEntryIds(),
+			serviceContext.getAssetPriority());
+
+		// Workflow
+
+		return startWorkflowInstance(userId, entry, serviceContext);		
+		
+	}
+	
 	/**
 	 * Add Entry
 	 *
@@ -493,6 +574,36 @@ public class SampleSBLocalServiceImpl extends SampleSBLocalServiceBaseImpl {
 	/**
 	 * Converte Date Time into Date()
 	 *
+	 * @param timeStr  Time strings
+	 * @return Date object
+	 */
+	public Date getDateTimeFromRequest(String timeStr, String format) {
+
+		LocalDateTime ldt;
+
+		try {
+	        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format);
+	        ldt = LocalDateTime.parse(timeStr, dtf);
+		}
+		catch (Exception e) {
+			_log.error(
+				"Unnable get date data. Initialize with current date", e);
+			Date in = new Date();
+
+			Instant instant = in.toInstant();
+
+			return Date.from(instant);
+		}
+
+		return Date.from(
+			ldt.atZone(
+				ZoneId.systemDefault()
+			).toInstant());
+	}
+	
+	/**
+	 * Converte Date Time into Date()
+	 *
 	 * @param request PortletRequest
 	 * @param prefix  Prefix of the parameter
 	 * @return Date object
@@ -606,7 +717,7 @@ public class SampleSBLocalServiceImpl extends SampleSBLocalServiceBaseImpl {
 
 		return sampleSBPersistence.findByG_UT(groupId, urlTitle);
 	}
-
+	
 	/**
 	 * Populate Model with values from a form
 	 *
@@ -788,6 +899,102 @@ public class SampleSBLocalServiceImpl extends SampleSBLocalServiceBaseImpl {
 			AssetLinkConstants.TYPE_RELATED);
 	}
 
+	/**
+	 * Update Entry
+	 * 
+	 * @param primaryKey
+	 * @param title
+	 * @param samplesbBooleanStat
+	 * @param samplesbDateTime
+	 * @param samplesbDocumentLibrary
+	 * @param samplesbDouble
+	 * @param samplesbInteger
+	 * @param samplesbRichText
+	 * @param samplesbText
+	 * @param samplesbTitleName
+	 * @param samplesbSummaryName
+	 * @param serviceContext
+	 * @return
+	 * @throws PortalException
+	 * @throws SampleSBValidateException
+	 */
+	public SampleSB updateEntry(long primaryKey, String title, boolean samplesbBooleanStat, String samplesbDateTime,
+			String samplesbDocumentLibrary, double samplesbDouble, int samplesbInteger, String samplesbRichText, 
+			String samplesbText, String samplesbTitleName, String samplesbSummaryName, final ServiceContext serviceContext ) 
+					throws PortalException, SampleSBValidateException {
+		SampleSB updateEntry = fetchSampleSB(primaryKey);
+
+		User user = userLocalService.getUser(serviceContext.getUserId());
+
+		Date now = new Date();
+		updateEntry.setModifiedDate(now);
+
+		String urlTitle = updateEntry.getSamplesbTitleName();
+		if (Validator.isNotNull(urlTitle)) {
+			long classNameId = _classNameLocalService.getClassNameId(
+				SampleSB.class);
+
+			try{
+				_friendlyURLEntryLocalService.validate(
+					updateEntry.getGroupId(), classNameId, primaryKey, samplesbTitleName);
+			} catch(DuplicateFriendlyURLEntryException e) {
+				List<String> error = new ArrayList<String>();
+				error.add("duplicated-url-title");
+				throw new SampleSBValidateException(error);
+			}
+		}
+		else {
+			urlTitle = getUniqueUrlTitle(updateEntry, urlTitle);
+		}
+
+		if (!urlTitle.equals(updateEntry.getUrlTitle())) {
+			urlTitle = updateFriendlyURLs(updateEntry, urlTitle, serviceContext);
+		}
+
+		updateEntry.setUrlTitle(
+			getUniqueUrlTitle(updateEntry, urlTitle));
+
+		updateEntry.setSamplesbTitleName(samplesbTitleName);
+		updateEntry.setSamplesbSummaryName(samplesbSummaryName);
+
+/*   */
+		// TODO : Ommit primaryKey here when it's convered to template
+		updateEntry.setTitle(title);
+		updateEntry.setSamplesbBooleanStat(samplesbBooleanStat);
+        updateEntry.setSamplesbDateTime(getDateTimeFromRequest(samplesbDateTime, "yyyy/MM/dd HH:mm:ss"));
+        updateEntry.setSamplesbDocumentLibrary(samplesbDocumentLibrary);
+        updateEntry.setSamplesbDouble(samplesbDouble);
+        updateEntry.setSamplesbInteger(samplesbInteger);
+        updateEntry.setSamplesbRichText(samplesbRichText);
+        updateEntry.setSamplesbText(samplesbText);
+
+        updateEntry.setCompanyId(serviceContext.getCompanyId());
+        updateEntry.setGroupId(serviceContext.getScopeGroupId());
+        updateEntry.setUserId(serviceContext.getUserId());
+/*  */ 
+
+		if (!updateEntry.isPending() && !updateEntry.isDraft()) {
+			updateEntry.setStatus(WorkflowConstants.STATUS_DRAFT);
+		}
+
+		SampleSB updatedEntry = sampleSBPersistence.update(updateEntry);
+
+		// Asset
+
+		updateAsset(
+			updatedEntry.getUserId(), updatedEntry,
+			serviceContext.getAssetCategoryIds(),
+			serviceContext.getAssetTagNames(),
+			serviceContext.getAssetLinkEntryIds(),
+			serviceContext.getAssetPriority());
+
+		updatedEntry = startWorkflowInstance(
+			user.getUserId(), updatedEntry, serviceContext);
+
+		return updatedEntry;
+		
+	}
+	
 	/**
 	 * Edit Entry
 	 *

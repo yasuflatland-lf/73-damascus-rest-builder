@@ -132,7 +132,7 @@ public class SampleSBTrashHandler extends BaseTrashHandler {
 		if (trashActionId.equals(TrashActionKeys.MOVE)) {
 			return ModelResourcePermissionHelper.contains(
 				_sampleSBModelResourcePermission, permissionChecker, groupId,
-				classPK, ActionKeys.ADD_ARTICLE);
+				classPK, ActionKeys.ADD_ENTRY);
 		}
 
 		return super.hasTrashPermission(
