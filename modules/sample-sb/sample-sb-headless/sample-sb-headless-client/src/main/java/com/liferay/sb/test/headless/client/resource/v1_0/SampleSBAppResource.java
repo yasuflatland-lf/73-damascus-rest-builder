@@ -1,10 +1,10 @@
 package com.liferay.sb.test.headless.client.resource.v1_0;
 
-import com.liferay.sb.test.headless.client.dto.v1_0.SampleSB;
+import com.liferay.sb.test.headless.client.dto.v1_0.SampleSBApp;
 import com.liferay.sb.test.headless.client.http.HttpInvoker;
 import com.liferay.sb.test.headless.client.pagination.Page;
 import com.liferay.sb.test.headless.client.pagination.Pagination;
-import com.liferay.sb.test.headless.client.serdes.v1_0.SampleSBSerDes;
+import com.liferay.sb.test.headless.client.serdes.v1_0.SampleSBAppSerDes;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,14 +16,14 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public class SampleSBResource {
+public class SampleSBAppResource {
 
-	public static Page<SampleSB> getSampleSBsPage(
+	public static Page<SampleSBApp> getSamplesbsPage(
 			String keywords, String filterString, Pagination pagination,
 			String sortString)
 		throws Exception {
 
-		HttpInvoker.HttpResponse httpResponse = getSampleSBsPageHttpResponse(
+		HttpInvoker.HttpResponse httpResponse = getSamplesbsPageHttpResponse(
 			keywords, filterString, pagination, sortString);
 
 		String content = httpResponse.getContent();
@@ -34,10 +34,10 @@ public class SampleSBResource {
 		_logger.fine(
 			"HTTP response status code: " + httpResponse.getStatusCode());
 
-		return Page.of(content, SampleSBSerDes::toDTO);
+		return Page.of(content, SampleSBAppSerDes::toDTO);
 	}
 
-	public static HttpInvoker.HttpResponse getSampleSBsPageHttpResponse(
+	public static HttpInvoker.HttpResponse getSamplesbsPageHttpResponse(
 			String keywords, String filterString, Pagination pagination,
 			String sortString)
 		throws Exception {
@@ -72,9 +72,11 @@ public class SampleSBResource {
 		return httpInvoker.invoke();
 	}
 
-	public static SampleSB postSampleSB(SampleSB sampleSB) throws Exception {
-		HttpInvoker.HttpResponse httpResponse = postSampleSBHttpResponse(
-			sampleSB);
+	public static SampleSBApp postSamplesb(SampleSBApp sampleSBApp)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse = postSamplesbHttpResponse(
+			sampleSBApp);
 
 		String content = httpResponse.getContent();
 
@@ -85,7 +87,7 @@ public class SampleSBResource {
 			"HTTP response status code: " + httpResponse.getStatusCode());
 
 		try {
-			return SampleSBSerDes.toDTO(content);
+			return SampleSBAppSerDes.toDTO(content);
 		}
 		catch (Exception e) {
 			_logger.log(
@@ -96,13 +98,13 @@ public class SampleSBResource {
 		}
 	}
 
-	public static HttpInvoker.HttpResponse postSampleSBHttpResponse(
-			SampleSB sampleSB)
+	public static HttpInvoker.HttpResponse postSamplesbHttpResponse(
+			SampleSBApp sampleSBApp)
 		throws Exception {
 
 		HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-		httpInvoker.body(sampleSB.toString(), "application/json");
+		httpInvoker.body(sampleSBApp.toString(), "application/json");
 
 		httpInvoker.httpMethod(HttpInvoker.HttpMethod.POST);
 
@@ -114,9 +116,9 @@ public class SampleSBResource {
 		return httpInvoker.invoke();
 	}
 
-	public static void deleteSampleSB(Long sampleSbId) throws Exception {
-		HttpInvoker.HttpResponse httpResponse = deleteSampleSBHttpResponse(
-			sampleSbId);
+	public static void deleteSamplesbSampleSb(Long entityId) throws Exception {
+		HttpInvoker.HttpResponse httpResponse =
+			deleteSamplesbSampleSbHttpResponse(entityId);
 
 		String content = httpResponse.getContent();
 
@@ -127,8 +129,8 @@ public class SampleSBResource {
 			"HTTP response status code: " + httpResponse.getStatusCode());
 	}
 
-	public static HttpInvoker.HttpResponse deleteSampleSBHttpResponse(
-			Long sampleSbId)
+	public static HttpInvoker.HttpResponse deleteSamplesbSampleSbHttpResponse(
+			Long entityId)
 		throws Exception {
 
 		HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -137,16 +139,18 @@ public class SampleSBResource {
 
 		httpInvoker.path(
 			"http://localhost:8080/o/sample-sb-headless/v1.0/samplesbs/{sampleSbId}",
-			sampleSbId);
+			entityId);
 
 		httpInvoker.userNameAndPassword("test@liferay.com:test");
 
 		return httpInvoker.invoke();
 	}
 
-	public static SampleSB getSampleSB(Long sampleSbId) throws Exception {
-		HttpInvoker.HttpResponse httpResponse = getSampleSBHttpResponse(
-			sampleSbId);
+	public static SampleSBApp getSamplesbSampleSb(Long entityId)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse = getSamplesbSampleSbHttpResponse(
+			entityId);
 
 		String content = httpResponse.getContent();
 
@@ -157,7 +161,7 @@ public class SampleSBResource {
 			"HTTP response status code: " + httpResponse.getStatusCode());
 
 		try {
-			return SampleSBSerDes.toDTO(content);
+			return SampleSBAppSerDes.toDTO(content);
 		}
 		catch (Exception e) {
 			_logger.log(
@@ -168,8 +172,8 @@ public class SampleSBResource {
 		}
 	}
 
-	public static HttpInvoker.HttpResponse getSampleSBHttpResponse(
-			Long sampleSbId)
+	public static HttpInvoker.HttpResponse getSamplesbSampleSbHttpResponse(
+			Long entityId)
 		throws Exception {
 
 		HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -178,18 +182,19 @@ public class SampleSBResource {
 
 		httpInvoker.path(
 			"http://localhost:8080/o/sample-sb-headless/v1.0/samplesbs/{sampleSbId}",
-			sampleSbId);
+			entityId);
 
 		httpInvoker.userNameAndPassword("test@liferay.com:test");
 
 		return httpInvoker.invoke();
 	}
 
-	public static SampleSB putSampleSB(Long sampleSbId, SampleSB sampleSB)
+	public static SampleSBApp putSamplesbSampleSb(
+			Long entityId, SampleSBApp sampleSBApp)
 		throws Exception {
 
-		HttpInvoker.HttpResponse httpResponse = putSampleSBHttpResponse(
-			sampleSbId, sampleSB);
+		HttpInvoker.HttpResponse httpResponse = putSamplesbSampleSbHttpResponse(
+			entityId, sampleSBApp);
 
 		String content = httpResponse.getContent();
 
@@ -200,7 +205,7 @@ public class SampleSBResource {
 			"HTTP response status code: " + httpResponse.getStatusCode());
 
 		try {
-			return SampleSBSerDes.toDTO(content);
+			return SampleSBAppSerDes.toDTO(content);
 		}
 		catch (Exception e) {
 			_logger.log(
@@ -211,19 +216,19 @@ public class SampleSBResource {
 		}
 	}
 
-	public static HttpInvoker.HttpResponse putSampleSBHttpResponse(
-			Long sampleSbId, SampleSB sampleSB)
+	public static HttpInvoker.HttpResponse putSamplesbSampleSbHttpResponse(
+			Long entityId, SampleSBApp sampleSBApp)
 		throws Exception {
 
 		HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
 
-		httpInvoker.body(sampleSB.toString(), "application/json");
+		httpInvoker.body(sampleSBApp.toString(), "application/json");
 
 		httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
 
 		httpInvoker.path(
 			"http://localhost:8080/o/sample-sb-headless/v1.0/samplesbs/{sampleSbId}",
-			sampleSbId);
+			entityId);
 
 		httpInvoker.userNameAndPassword("test@liferay.com:test");
 
@@ -231,6 +236,6 @@ public class SampleSBResource {
 	}
 
 	private static final Logger _logger = Logger.getLogger(
-		SampleSBResource.class.getName());
+		SampleSBAppResource.class.getName());
 
 }

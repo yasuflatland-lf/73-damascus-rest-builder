@@ -40,6 +40,8 @@ import com.liferay.sb.test.model.SampleSB;
 
 import java.io.Serializable;
 
+import java.text.ParseException;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +74,34 @@ public interface SampleSBLocalService
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SampleSBLocalServiceUtil} to access the sample sb local service. Add custom service methods to <code>com.liferay.sb.test.service.impl.SampleSBLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+
+	/**
+	 * Add Entry
+	 *
+	 * @param primaryKey
+	 * @param title
+	 * @param samplesbBooleanStat
+	 * @param samplesbDateTime
+	 * @param samplesbDocumentLibrary
+	 * @param samplesbDouble
+	 * @param samplesbInteger
+	 * @param samplesbRichText
+	 * @param samplesbText
+	 * @param samplesbTitleName
+	 * @param samplesbSummaryName
+	 * @param serviceContext
+	 * @return
+	 * @throws SampleSBValidateException
+	 * @throws ParseException
+	 */
+	@Indexable(type = IndexableType.REINDEX)
+	public SampleSB addEntry(
+			long primaryKey, String title, boolean samplesbBooleanStat,
+			String samplesbDateTime, String samplesbDocumentLibrary,
+			double samplesbDouble, int samplesbInteger, String samplesbRichText,
+			String samplesbText, String samplesbTitleName,
+			String samplesbSummaryName, ServiceContext serviceContext)
+		throws ParseException, PortalException, SampleSBValidateException;
 
 	/**
 	 * Add Entry
@@ -540,10 +570,49 @@ public interface SampleSBLocalService
 	public SampleSB restoreEntryFromTrash(long userId, long entryId)
 		throws PortalException;
 
+	/**
+	 * To LocalDateTime
+	 *
+	 * @param date
+	 * @param format
+	 * @return
+	 * @throws ParseException
+	 */
+	public Date toLocalDateTime(String date, String format)
+		throws ParseException;
+
 	public void updateAsset(
 			long userId, SampleSB entry, long[] assetCategoryIds,
 			String[] assetTagNames, long[] assetLinkEntryIds, Double priority)
 		throws PortalException;
+
+	/**
+	 * Update Entry
+	 *
+	 * @param primaryKey
+	 * @param title
+	 * @param samplesbBooleanStat
+	 * @param samplesbDateTime
+	 * @param samplesbDocumentLibrary
+	 * @param samplesbDouble
+	 * @param samplesbInteger
+	 * @param samplesbRichText
+	 * @param samplesbText
+	 * @param samplesbTitleName
+	 * @param samplesbSummaryName
+	 * @param serviceContext
+	 * @return
+	 * @throws PortalException
+	 * @throws SampleSBValidateException
+	 * @throws ParseException
+	 */
+	public SampleSB updateEntry(
+			long primaryKey, String title, boolean samplesbBooleanStat,
+			String samplesbDateTime, String samplesbDocumentLibrary,
+			double samplesbDouble, int samplesbInteger, String samplesbRichText,
+			String samplesbText, String samplesbTitleName,
+			String samplesbSummaryName, ServiceContext serviceContext)
+		throws ParseException, PortalException, SampleSBValidateException;
 
 	/**
 	 * Edit Entry

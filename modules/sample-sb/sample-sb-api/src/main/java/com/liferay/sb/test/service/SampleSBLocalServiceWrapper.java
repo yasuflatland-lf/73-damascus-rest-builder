@@ -35,6 +35,44 @@ public class SampleSBLocalServiceWrapper
 	/**
 	 * Add Entry
 	 *
+	 * @param primaryKey
+	 * @param title
+	 * @param samplesbBooleanStat
+	 * @param samplesbDateTime
+	 * @param samplesbDocumentLibrary
+	 * @param samplesbDouble
+	 * @param samplesbInteger
+	 * @param samplesbRichText
+	 * @param samplesbText
+	 * @param samplesbTitleName
+	 * @param samplesbSummaryName
+	 * @param serviceContext
+	 * @return
+	 * @throws SampleSBValidateException
+	 * @throws ParseException
+	 */
+	@Override
+	public com.liferay.sb.test.model.SampleSB addEntry(
+			long primaryKey, String title, boolean samplesbBooleanStat,
+			String samplesbDateTime, String samplesbDocumentLibrary,
+			double samplesbDouble, int samplesbInteger, String samplesbRichText,
+			String samplesbText, String samplesbTitleName,
+			String samplesbSummaryName,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   com.liferay.sb.test.exception.SampleSBValidateException,
+			   java.text.ParseException {
+
+		return _sampleSBLocalService.addEntry(
+			primaryKey, title, samplesbBooleanStat, samplesbDateTime,
+			samplesbDocumentLibrary, samplesbDouble, samplesbInteger,
+			samplesbRichText, samplesbText, samplesbTitleName,
+			samplesbSummaryName, serviceContext);
+	}
+
+	/**
+	 * Add Entry
+	 *
 	 * @param orgEntry       SampleSB model
 	 * @param serviceContext ServiceContext
 	 * @exception PortalException
@@ -788,6 +826,21 @@ public class SampleSBLocalServiceWrapper
 		return _sampleSBLocalService.restoreEntryFromTrash(userId, entryId);
 	}
 
+	/**
+	 * To LocalDateTime
+	 *
+	 * @param date
+	 * @param format
+	 * @return
+	 * @throws ParseException
+	 */
+	@Override
+	public java.util.Date toLocalDateTime(String date, String format)
+		throws java.text.ParseException {
+
+		return _sampleSBLocalService.toLocalDateTime(date, format);
+	}
+
 	@Override
 	public void updateAsset(
 			long userId, com.liferay.sb.test.model.SampleSB entry,
@@ -798,6 +851,45 @@ public class SampleSBLocalServiceWrapper
 		_sampleSBLocalService.updateAsset(
 			userId, entry, assetCategoryIds, assetTagNames, assetLinkEntryIds,
 			priority);
+	}
+
+	/**
+	 * Update Entry
+	 *
+	 * @param primaryKey
+	 * @param title
+	 * @param samplesbBooleanStat
+	 * @param samplesbDateTime
+	 * @param samplesbDocumentLibrary
+	 * @param samplesbDouble
+	 * @param samplesbInteger
+	 * @param samplesbRichText
+	 * @param samplesbText
+	 * @param samplesbTitleName
+	 * @param samplesbSummaryName
+	 * @param serviceContext
+	 * @return
+	 * @throws PortalException
+	 * @throws SampleSBValidateException
+	 * @throws ParseException
+	 */
+	@Override
+	public com.liferay.sb.test.model.SampleSB updateEntry(
+			long primaryKey, String title, boolean samplesbBooleanStat,
+			String samplesbDateTime, String samplesbDocumentLibrary,
+			double samplesbDouble, int samplesbInteger, String samplesbRichText,
+			String samplesbText, String samplesbTitleName,
+			String samplesbSummaryName,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   com.liferay.sb.test.exception.SampleSBValidateException,
+			   java.text.ParseException {
+
+		return _sampleSBLocalService.updateEntry(
+			primaryKey, title, samplesbBooleanStat, samplesbDateTime,
+			samplesbDocumentLibrary, samplesbDouble, samplesbInteger,
+			samplesbRichText, samplesbText, samplesbTitleName,
+			samplesbSummaryName, serviceContext);
 	}
 
 	/**

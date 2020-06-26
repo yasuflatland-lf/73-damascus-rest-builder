@@ -10,5 +10,5 @@ import org.junit.runner.RunWith;
  */
 @Ignore
 @RunWith(Arquillian.class)
-public class SampleSBResourceTest extends BaseSampleSBResourceTestCase {
+public class SampleSBAppResourceTest extends BaseSampleSBAppResourceTestCase {
 }

@@ -11,8 +11,8 @@ components:
         - data
         - format
       type: object
-    SampleSB:
-      description: Contains information about an SampleSB.
+    SampleSBApp:
+      description: Contains information about an SampleSBApp.
       properties:
         sampleSbId:
           description: The primary key for the SampleSB entity.
@@ -20,36 +20,36 @@ components:
           format: int64
           readOnly: true
         title:
-          description: SampleSB's title.
+          description: SampleSBApp's title.
           type: string
         samplesbBooleanStat:
-          description: SampleSB's samplesbBooleanStat.
+          description: SampleSBApp's samplesbBooleanStat.
           type: boolean
         samplesbDateTime:
-          description: SampleSB's samplesbDateTime.
+          description: SampleSBApp's samplesbDateTime.
           type: string          
         samplesbDocumentLibrary:
-          description: SampleSB's samplesbDocumentLibrary.
+          description: SampleSBApp's samplesbDocumentLibrary.
           type: string
         samplesbDouble:
-          description: SampleSB's samplesbDouble.
+          description: SampleSBApp's samplesbDouble.
           type: number
           format: double
         samplesbInteger:
-          description: SampleSB's samplesbInteger.
+          description: SampleSBApp's samplesbInteger.
           type: integer
           format: int32
         samplesbRichText:
-          description: SampleSB's samplesbRichText.
+          description: SampleSBApp's samplesbRichText.
           type: string
         samplesbText:
-          description: SampleSB's samplesbText.
+          description: SampleSBApp's samplesbText.
           type: string
         samplesbTitleName:
-          description: SampleSB's samplesbTitleName.
+          description: SampleSBApp's samplesbTitleName.
           type: string
         samplesbSummaryName:
-          description: SampleSB's samplesbSummaryName.
+          description: SampleSBApp's samplesbSummaryName.
           type: string
       required: 
         - title
@@ -63,8 +63,8 @@ info:
 paths:
   "/samplesbs":
     get:
-      operationId: getSampleSBsPage
-      tags: ["SampleSB"]
+      operationId: getSamplesbsPage
+      tags: ["SampleSBApp"]
       description: Retrieve the list of SampleSBs. Results can be paginated, filtered, searched and sorted.
       parameters:
         - in: query
@@ -96,42 +96,42 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: "#/components/schemas/SampleSB"
+                  $ref: "#/components/schemas/SampleSBApp"
                 type: array
             application/xml:
               schema:
                 items:
-                  $ref: "#/components/schemas/SampleSB"
+                  $ref: "#/components/schemas/SampleSBApp"
                 type: array
     post:
-      operationId: postSampleSB
-      tags: ["SampleSB"]
+      operationId: postSamplesb
+      tags: ["SampleSBApp"]
       description: Create a new SampleSB entity.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SampleSB"
+              $ref: "#/components/schemas/SampleSBApp"
           application/xml:
             schema:
-              $ref: "#/components/schemas/SampleSB"
+              $ref: "#/components/schemas/SampleSBApp"
       responses:
         200:
           description: ""
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SampleSB"
+                $ref: "#/components/schemas/SampleSBApp"
             application/xml:
               schema:
-                $ref: "#/components/schemas/SampleSB"
+                $ref: "#/components/schemas/SampleSBApp"
   "/samplesbs/{sampleSbId}":
     get:
-      operationId: getSampleSB
-      tags: ["SampleSB"]
+      operationId: getSamplesbSampleSb
+      tags: ["SampleSBApp"]
       description: Retrieves the SampleSB via its ID
       parameters: 
-        - name: sampleSbId
+        - name: entityId
           in: path
           required: true
           schema:
@@ -143,16 +143,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SampleSB"
+                $ref: "#/components/schemas/SampleSBApp"
             application/xml:
               schema:
-                $ref: "#/components/schemas/SampleSB"
+                $ref: "#/components/schemas/SampleSBApp"
     put:
-      operationId: putSampleSB
-      tags: ["SampleSB"]
+      operationId: putSamplesbSampleSb
+      tags: ["SampleSBApp"]
       description: Updates and overwrites existing SampleSB entity.
       parameters: 
-        - name: sampleSbId
+        - name: entityId
           in: path
           required: true
           schema:
@@ -162,26 +162,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SampleSB"
+              $ref: "#/components/schemas/SampleSBApp"
           application/xml:
             schema:
-              $ref: "#/components/schemas/SampleSB"
+              $ref: "#/components/schemas/SampleSBApp"
       responses:
         200:
           description: ""
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SampleSB"
+                $ref: "#/components/schemas/SampleSBApp"
             application/xml:
               schema:
-                $ref: "#/components/schemas/SampleSB"   
+                $ref: "#/components/schemas/SampleSBApp"   
     delete:
-      operationId: deleteSampleSB
-      tags: ["SampleSB"]
+      operationId: deleteSamplesbSampleSb
+      tags: ["SampleSBApp"]
       description: Deletes the target office entity.
       parameters: 
-        - name: sampleSbId
+        - name: entityId
           in: path
           required: true
           schema:

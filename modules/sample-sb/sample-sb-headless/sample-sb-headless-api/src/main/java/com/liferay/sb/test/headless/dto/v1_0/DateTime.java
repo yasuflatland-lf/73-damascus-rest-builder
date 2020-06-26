@@ -28,25 +28,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @Generated("")
-@GraphQLName("Time")
+@GraphQLName("DateTime")
 @JsonFilter("Liferay.Vulcan")
-@Schema(requiredProperties = {"hours", "minutes", "ampm"})
-@XmlRootElement(name = "Time")
-public class Time {
+@Schema(requiredProperties = {"data", "format"})
+@XmlRootElement(name = "DateTime")
+public class DateTime {
 
 	@Schema
-	public String getAmpm() {
-		return ampm;
+	public String getData() {
+		return data;
 	}
 
-	public void setAmpm(String ampm) {
-		this.ampm = ampm;
+	public void setData(String data) {
+		this.data = data;
 	}
 
 	@JsonIgnore
-	public void setAmpm(UnsafeSupplier<String, Exception> ampmUnsafeSupplier) {
+	public void setData(UnsafeSupplier<String, Exception> dataUnsafeSupplier) {
 		try {
-			ampm = ampmUnsafeSupplier.get();
+			data = dataUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -59,23 +59,23 @@ public class Time {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
-	protected String ampm;
+	protected String data;
 
 	@Schema
-	public String getHours() {
-		return hours;
+	public String getFormat() {
+		return format;
 	}
 
-	public void setHours(String hours) {
-		this.hours = hours;
+	public void setFormat(String format) {
+		this.format = format;
 	}
 
 	@JsonIgnore
-	public void setHours(
-		UnsafeSupplier<String, Exception> hoursUnsafeSupplier) {
+	public void setFormat(
+		UnsafeSupplier<String, Exception> formatUnsafeSupplier) {
 
 		try {
-			hours = hoursUnsafeSupplier.get();
+			format = formatUnsafeSupplier.get();
 		}
 		catch (RuntimeException re) {
 			throw re;
@@ -88,36 +88,7 @@ public class Time {
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	@NotEmpty
-	protected String hours;
-
-	@Schema
-	public String getMinutes() {
-		return minutes;
-	}
-
-	public void setMinutes(String minutes) {
-		this.minutes = minutes;
-	}
-
-	@JsonIgnore
-	public void setMinutes(
-		UnsafeSupplier<String, Exception> minutesUnsafeSupplier) {
-
-		try {
-			minutes = minutesUnsafeSupplier.get();
-		}
-		catch (RuntimeException re) {
-			throw re;
-		}
-		catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@GraphQLField
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	@NotEmpty
-	protected String minutes;
+	protected String format;
 
 	@Override
 	public boolean equals(Object object) {
@@ -125,13 +96,13 @@ public class Time {
 			return true;
 		}
 
-		if (!(object instanceof Time)) {
+		if (!(object instanceof DateTime)) {
 			return false;
 		}
 
-		Time time = (Time)object;
+		DateTime dateTime = (DateTime)object;
 
-		return Objects.equals(toString(), time.toString());
+		return Objects.equals(toString(), dateTime.toString());
 	}
 
 	@Override
@@ -146,44 +117,30 @@ public class Time {
 
 		sb.append("{");
 
-		if (ampm != null) {
+		if (data != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"ampm\": ");
+			sb.append("\"data\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(ampm));
+			sb.append(_escape(data));
 
 			sb.append("\"");
 		}
 
-		if (hours != null) {
+		if (format != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"hours\": ");
+			sb.append("\"format\": ");
 
 			sb.append("\"");
 
-			sb.append(_escape(hours));
-
-			sb.append("\"");
-		}
-
-		if (minutes != null) {
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append("\"minutes\": ");
-
-			sb.append("\"");
-
-			sb.append(_escape(minutes));
+			sb.append(_escape(format));
 
 			sb.append("\"");
 		}

@@ -5,7 +5,7 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
-import com.liferay.sb.test.headless.dto.v1_0.SampleSB;
+import com.liferay.sb.test.headless.dto.v1_0.SampleSBApp;
 
 import javax.annotation.Generated;
 
@@ -18,19 +18,20 @@ import javax.annotation.Generated;
  * @generated
  */
 @Generated("")
-public interface SampleSBResource {
+public interface SampleSBAppResource {
 
-	public Page<SampleSB> getSampleSBsPage(
+	public Page<SampleSBApp> getSamplesbsPage(
 			String keywords, Filter filter, Pagination pagination, Sort[] sorts)
 		throws Exception;
 
-	public SampleSB postSampleSB(SampleSB sampleSB) throws Exception;
+	public SampleSBApp postSamplesb(SampleSBApp sampleSBApp) throws Exception;
 
-	public void deleteSampleSB(Long sampleSbId) throws Exception;
+	public void deleteSamplesbSampleSb(Long entityId) throws Exception;
 
-	public SampleSB getSampleSB(Long sampleSbId) throws Exception;
+	public SampleSBApp getSamplesbSampleSb(Long entityId) throws Exception;
 
-	public SampleSB putSampleSB(Long sampleSbId, SampleSB sampleSB)
+	public SampleSBApp putSamplesbSampleSb(
+			Long entityId, SampleSBApp sampleSBApp)
 		throws Exception;
 
 	public void setContextCompany(Company contextCompany);

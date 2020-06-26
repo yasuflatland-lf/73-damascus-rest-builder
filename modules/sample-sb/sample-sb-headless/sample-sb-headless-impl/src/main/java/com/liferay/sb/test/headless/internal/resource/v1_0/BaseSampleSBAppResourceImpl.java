@@ -8,8 +8,8 @@ import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.TransformUtil;
-import com.liferay.sb.test.headless.dto.v1_0.SampleSB;
-import com.liferay.sb.test.headless.resource.v1_0.SampleSBResource;
+import com.liferay.sb.test.headless.dto.v1_0.SampleSBApp;
+import com.liferay.sb.test.headless.resource.v1_0.SampleSBAppResource;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -44,7 +44,8 @@ import javax.ws.rs.core.UriInfo;
  */
 @Generated("")
 @Path("/v1.0")
-public abstract class BaseSampleSBResourceImpl implements SampleSBResource {
+public abstract class BaseSampleSBAppResourceImpl
+	implements SampleSBAppResource {
 
 	@Override
 	@GET
@@ -62,8 +63,8 @@ public abstract class BaseSampleSBResourceImpl implements SampleSBResource {
 	)
 	@Path("/samplesbs")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "SampleSB")})
-	public Page<SampleSB> getSampleSBsPage(
+	@Tags(value = {@Tag(name = "SampleSBApp")})
+	public Page<SampleSBApp> getSamplesbsPage(
 			@Parameter(hidden = true) @QueryParam("keywords") String keywords,
 			@Context Filter filter, @Context Pagination pagination,
 			@Context Sort[] sorts)
@@ -78,67 +79,62 @@ public abstract class BaseSampleSBResourceImpl implements SampleSBResource {
 	@POST
 	@Path("/samplesbs")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "SampleSB")})
-	public SampleSB postSampleSB(SampleSB sampleSB) throws Exception {
-		return new SampleSB();
+	@Tags(value = {@Tag(name = "SampleSBApp")})
+	public SampleSBApp postSamplesb(SampleSBApp sampleSBApp) throws Exception {
+		return new SampleSBApp();
 	}
 
 	@Override
 	@DELETE
 	@Operation(description = "Deletes the target office entity.")
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "sampleSbId")}
-	)
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "entityId")})
 	@Path("/samplesbs/{sampleSbId}")
 	@Produces("application/json")
-	@Tags(value = {@Tag(name = "SampleSB")})
-	public void deleteSampleSB(
-			@NotNull @Parameter(hidden = true) @PathParam("sampleSbId") Long
-				sampleSbId)
+	@Tags(value = {@Tag(name = "SampleSBApp")})
+	public void deleteSamplesbSampleSb(
+			@NotNull @Parameter(hidden = true) @PathParam("entityId") Long
+				entityId)
 		throws Exception {
 	}
 
 	@Override
 	@GET
 	@Operation(description = "Retrieves the SampleSB via its ID")
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "sampleSbId")}
-	)
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "entityId")})
 	@Path("/samplesbs/{sampleSbId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "SampleSB")})
-	public SampleSB getSampleSB(
-			@NotNull @Parameter(hidden = true) @PathParam("sampleSbId") Long
-				sampleSbId)
+	@Tags(value = {@Tag(name = "SampleSBApp")})
+	public SampleSBApp getSamplesbSampleSb(
+			@NotNull @Parameter(hidden = true) @PathParam("entityId") Long
+				entityId)
 		throws Exception {
 
-		return new SampleSB();
+		return new SampleSBApp();
 	}
 
 	@Override
 	@Consumes({"application/json", "application/xml"})
 	@Operation(description = "Updates and overwrites existing SampleSB entity.")
 	@PUT
-	@Parameters(
-		value = {@Parameter(in = ParameterIn.PATH, name = "sampleSbId")}
-	)
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "entityId")})
 	@Path("/samplesbs/{sampleSbId}")
 	@Produces({"application/json", "application/xml"})
-	@Tags(value = {@Tag(name = "SampleSB")})
-	public SampleSB putSampleSB(
-			@NotNull @Parameter(hidden = true) @PathParam("sampleSbId") Long
-				sampleSbId,
-			SampleSB sampleSB)
+	@Tags(value = {@Tag(name = "SampleSBApp")})
+	public SampleSBApp putSamplesbSampleSb(
+			@NotNull @Parameter(hidden = true) @PathParam("entityId") Long
+				entityId,
+			SampleSBApp sampleSBApp)
 		throws Exception {
 
-		return new SampleSB();
+		return new SampleSBApp();
 	}
 
 	public void setContextCompany(Company contextCompany) {
 		this.contextCompany = contextCompany;
 	}
 
-	protected void preparePatch(SampleSB sampleSB, SampleSB existingSampleSB) {
+	protected void preparePatch(
+		SampleSBApp sampleSBApp, SampleSBApp existingSampleSBApp) {
 	}
 
 	protected <T, R> List<R> transform(

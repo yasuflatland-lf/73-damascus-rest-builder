@@ -3,7 +3,7 @@ package com.liferay.sb.test.headless.internal.graphql.servlet.v1_0;
 import com.liferay.portal.vulcan.graphql.servlet.ServletData;
 import com.liferay.sb.test.headless.internal.graphql.mutation.v1_0.Mutation;
 import com.liferay.sb.test.headless.internal.graphql.query.v1_0.Query;
-import com.liferay.sb.test.headless.resource.v1_0.SampleSBResource;
+import com.liferay.sb.test.headless.resource.v1_0.SampleSBAppResource;
 
 import javax.annotation.Generated;
 
@@ -24,11 +24,11 @@ public class ServletDataImpl implements ServletData {
 
 	@Activate
 	public void activate(BundleContext bundleContext) {
-		Mutation.setSampleSBResourceComponentServiceObjects(
-			_sampleSBResourceComponentServiceObjects);
+		Mutation.setSampleSBAppResourceComponentServiceObjects(
+			_sampleSBAppResourceComponentServiceObjects);
 
-		Query.setSampleSBResourceComponentServiceObjects(
-			_sampleSBResourceComponentServiceObjects);
+		Query.setSampleSBAppResourceComponentServiceObjects(
+			_sampleSBAppResourceComponentServiceObjects);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class ServletDataImpl implements ServletData {
 	}
 
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
-	private ComponentServiceObjects<SampleSBResource>
-		_sampleSBResourceComponentServiceObjects;
+	private ComponentServiceObjects<SampleSBAppResource>
+		_sampleSBAppResourceComponentServiceObjects;
 
 }

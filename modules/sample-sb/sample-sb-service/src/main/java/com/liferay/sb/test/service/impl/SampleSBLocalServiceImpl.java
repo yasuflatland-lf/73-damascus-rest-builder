@@ -65,10 +65,11 @@ import com.liferay.trash.model.TrashEntry;
 import com.liferay.trash.service.TrashEntryLocalService;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -107,7 +108,25 @@ import org.slf4j.LoggerFactory;
 )
 public class SampleSBLocalServiceImpl extends SampleSBLocalServiceBaseImpl {
 
-
+	/**
+	 * To LocalDateTime
+	 * 
+	 * @param date
+	 * @param format
+	 * @return
+	 * @throws ParseException
+	 */
+    public Date toLocalDateTime(String date, String format) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date formatDate = sdf.parse(date);
+        LocalDateTime ldt = LocalDateTime.ofInstant(formatDate.toInstant(), ZoneId.systemDefault());
+        
+		return Date.from(
+				ldt.atZone(
+					ZoneId.systemDefault()
+				).toInstant());
+    }
+    
 	/**
 	 * Add Entry
 	 * 
@@ -125,13 +144,14 @@ public class SampleSBLocalServiceImpl extends SampleSBLocalServiceBaseImpl {
 	 * @param serviceContext
 	 * @return
 	 * @throws SampleSBValidateException
+	 * @throws ParseException 
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public SampleSB addEntry(long primaryKey, String title, boolean samplesbBooleanStat, String samplesbDateTime,
 			String samplesbDocumentLibrary, double samplesbDouble, int samplesbInteger, String samplesbRichText, 
 			String samplesbText, String samplesbTitleName, String samplesbSummaryName, final ServiceContext serviceContext ) 
-					throws PortalException, SampleSBValidateException {
+					throws PortalException, SampleSBValidateException, ParseException {
 
 		long userId = serviceContext.getUserId();
 		
@@ -149,7 +169,7 @@ public class SampleSBLocalServiceImpl extends SampleSBLocalServiceBaseImpl {
         entry.setSamplesbId(primaryKey);
         entry.setTitle(title);
         entry.setSamplesbBooleanStat(samplesbBooleanStat);
-        entry.setSamplesbDateTime(getDateTimeFromRequest(samplesbDateTime, "yyyy/MM/dd HH:mm:ss"));
+        entry.setSamplesbDateTime(toLocalDateTime(samplesbDateTime, "yyyy/MM/dd HH:mm:ss"));
         entry.setSamplesbDocumentLibrary(samplesbDocumentLibrary);
         entry.setSamplesbDouble(samplesbDouble);
         entry.setSamplesbInteger(samplesbInteger);
@@ -570,36 +590,6 @@ public class SampleSBLocalServiceImpl extends SampleSBLocalServiceBaseImpl {
 
 		return sampleSBPersistence.countByC_S(companyId, status);
 	}
-
-	/**
-	 * Converte Date Time into Date()
-	 *
-	 * @param timeStr  Time strings
-	 * @return Date object
-	 */
-	public Date getDateTimeFromRequest(String timeStr, String format) {
-
-		LocalDateTime ldt;
-
-		try {
-	        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format);
-	        ldt = LocalDateTime.parse(timeStr, dtf);
-		}
-		catch (Exception e) {
-			_log.error(
-				"Unnable get date data. Initialize with current date", e);
-			Date in = new Date();
-
-			Instant instant = in.toInstant();
-
-			return Date.from(instant);
-		}
-
-		return Date.from(
-			ldt.atZone(
-				ZoneId.systemDefault()
-			).toInstant());
-	}
 	
 	/**
 	 * Converte Date Time into Date()
@@ -898,7 +888,7 @@ public class SampleSBLocalServiceImpl extends SampleSBLocalServiceBaseImpl {
 			userId, assetEntry.getEntryId(), assetLinkEntryIds,
 			AssetLinkConstants.TYPE_RELATED);
 	}
-
+    
 	/**
 	 * Update Entry
 	 * 
@@ -917,11 +907,12 @@ public class SampleSBLocalServiceImpl extends SampleSBLocalServiceBaseImpl {
 	 * @return
 	 * @throws PortalException
 	 * @throws SampleSBValidateException
+	 * @throws ParseException 
 	 */
 	public SampleSB updateEntry(long primaryKey, String title, boolean samplesbBooleanStat, String samplesbDateTime,
 			String samplesbDocumentLibrary, double samplesbDouble, int samplesbInteger, String samplesbRichText, 
 			String samplesbText, String samplesbTitleName, String samplesbSummaryName, final ServiceContext serviceContext ) 
-					throws PortalException, SampleSBValidateException {
+					throws PortalException, SampleSBValidateException, ParseException {
 		SampleSB updateEntry = fetchSampleSB(primaryKey);
 
 		User user = userLocalService.getUser(serviceContext.getUserId());
@@ -961,7 +952,7 @@ public class SampleSBLocalServiceImpl extends SampleSBLocalServiceBaseImpl {
 		// TODO : Ommit primaryKey here when it's convered to template
 		updateEntry.setTitle(title);
 		updateEntry.setSamplesbBooleanStat(samplesbBooleanStat);
-        updateEntry.setSamplesbDateTime(getDateTimeFromRequest(samplesbDateTime, "yyyy/MM/dd HH:mm:ss"));
+        updateEntry.setSamplesbDateTime(toLocalDateTime(samplesbDateTime, "yyyy/MM/dd HH:mm:ss"));
         updateEntry.setSamplesbDocumentLibrary(samplesbDocumentLibrary);
         updateEntry.setSamplesbDouble(samplesbDouble);
         updateEntry.setSamplesbInteger(samplesbInteger);

@@ -4,8 +4,8 @@ import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
-import com.liferay.sb.test.headless.dto.v1_0.SampleSB;
-import com.liferay.sb.test.headless.resource.v1_0.SampleSBResource;
+import com.liferay.sb.test.headless.dto.v1_0.SampleSBApp;
+import com.liferay.sb.test.headless.resource.v1_0.SampleSBAppResource;
 
 import graphql.annotations.annotationTypes.GraphQLField;
 import graphql.annotations.annotationTypes.GraphQLInvokeDetached;
@@ -22,46 +22,49 @@ import org.osgi.service.component.ComponentServiceObjects;
 @Generated("")
 public class Mutation {
 
-	public static void setSampleSBResourceComponentServiceObjects(
-		ComponentServiceObjects<SampleSBResource>
-			sampleSBResourceComponentServiceObjects) {
+	public static void setSampleSBAppResourceComponentServiceObjects(
+		ComponentServiceObjects<SampleSBAppResource>
+			sampleSBAppResourceComponentServiceObjects) {
 
-		_sampleSBResourceComponentServiceObjects =
-			sampleSBResourceComponentServiceObjects;
+		_sampleSBAppResourceComponentServiceObjects =
+			sampleSBAppResourceComponentServiceObjects;
 	}
 
 	@GraphQLField
 	@GraphQLInvokeDetached
-	public SampleSB postSampleSB(@GraphQLName("sampleSB") SampleSB sampleSB)
+	public SampleSBApp postSamplesb(
+			@GraphQLName("sampleSBApp") SampleSBApp sampleSBApp)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_sampleSBResourceComponentServiceObjects,
+			_sampleSBAppResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			sampleSBResource -> sampleSBResource.postSampleSB(sampleSB));
+			sampleSBAppResource -> sampleSBAppResource.postSamplesb(
+				sampleSBApp));
 	}
 
 	@GraphQLInvokeDetached
-	public void deleteSampleSB(@GraphQLName("sampleSbId") Long sampleSbId)
+	public void deleteSamplesbSampleSb(@GraphQLName("entityId") Long entityId)
 		throws Exception {
 
 		_applyVoidComponentServiceObjects(
-			_sampleSBResourceComponentServiceObjects,
+			_sampleSBAppResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			sampleSBResource -> sampleSBResource.deleteSampleSB(sampleSbId));
+			sampleSBAppResource -> sampleSBAppResource.deleteSamplesbSampleSb(
+				entityId));
 	}
 
 	@GraphQLInvokeDetached
-	public SampleSB putSampleSB(
-			@GraphQLName("sampleSbId") Long sampleSbId,
-			@GraphQLName("sampleSB") SampleSB sampleSB)
+	public SampleSBApp putSamplesbSampleSb(
+			@GraphQLName("entityId") Long entityId,
+			@GraphQLName("sampleSBApp") SampleSBApp sampleSBApp)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_sampleSBResourceComponentServiceObjects,
+			_sampleSBAppResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			sampleSBResource -> sampleSBResource.putSampleSB(
-				sampleSbId, sampleSB));
+			sampleSBAppResource -> sampleSBAppResource.putSamplesbSampleSb(
+				entityId, sampleSBApp));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
@@ -102,15 +105,16 @@ public class Mutation {
 		}
 	}
 
-	private void _populateResourceContext(SampleSBResource sampleSBResource)
+	private void _populateResourceContext(
+			SampleSBAppResource sampleSBAppResource)
 		throws Exception {
 
-		sampleSBResource.setContextCompany(
+		sampleSBAppResource.setContextCompany(
 			CompanyLocalServiceUtil.getCompany(
 				CompanyThreadLocal.getCompanyId()));
 	}
 
-	private static ComponentServiceObjects<SampleSBResource>
-		_sampleSBResourceComponentServiceObjects;
+	private static ComponentServiceObjects<SampleSBAppResource>
+		_sampleSBAppResourceComponentServiceObjects;
 
 }

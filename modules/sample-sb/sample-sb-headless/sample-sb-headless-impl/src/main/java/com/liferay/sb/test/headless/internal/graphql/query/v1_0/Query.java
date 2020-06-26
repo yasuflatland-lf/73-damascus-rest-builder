@@ -8,8 +8,8 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
-import com.liferay.sb.test.headless.dto.v1_0.SampleSB;
-import com.liferay.sb.test.headless.resource.v1_0.SampleSBResource;
+import com.liferay.sb.test.headless.dto.v1_0.SampleSBApp;
+import com.liferay.sb.test.headless.resource.v1_0.SampleSBAppResource;
 
 import graphql.annotations.annotationTypes.GraphQLField;
 import graphql.annotations.annotationTypes.GraphQLInvokeDetached;
@@ -28,17 +28,17 @@ import org.osgi.service.component.ComponentServiceObjects;
 @Generated("")
 public class Query {
 
-	public static void setSampleSBResourceComponentServiceObjects(
-		ComponentServiceObjects<SampleSBResource>
-			sampleSBResourceComponentServiceObjects) {
+	public static void setSampleSBAppResourceComponentServiceObjects(
+		ComponentServiceObjects<SampleSBAppResource>
+			sampleSBAppResourceComponentServiceObjects) {
 
-		_sampleSBResourceComponentServiceObjects =
-			sampleSBResourceComponentServiceObjects;
+		_sampleSBAppResourceComponentServiceObjects =
+			sampleSBAppResourceComponentServiceObjects;
 	}
 
 	@GraphQLField
 	@GraphQLInvokeDetached
-	public Collection<SampleSB> getSampleSBsPage(
+	public Collection<SampleSBApp> getSamplesbsPage(
 			@GraphQLName("keywords") String keywords,
 			@GraphQLName("filter") Filter filter,
 			@GraphQLName("pageSize") int pageSize,
@@ -46,10 +46,10 @@ public class Query {
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_sampleSBResourceComponentServiceObjects,
+			_sampleSBAppResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			sampleSBResource -> {
-				Page paginationPage = sampleSBResource.getSampleSBsPage(
+			sampleSBAppResource -> {
+				Page paginationPage = sampleSBAppResource.getSamplesbsPage(
 					keywords, filter, Pagination.of(pageSize, page), sorts);
 
 				return paginationPage.getItems();
@@ -58,13 +58,15 @@ public class Query {
 
 	@GraphQLField
 	@GraphQLInvokeDetached
-	public SampleSB getSampleSB(@GraphQLName("sampleSbId") Long sampleSbId)
+	public SampleSBApp getSamplesbSampleSb(
+			@GraphQLName("entityId") Long entityId)
 		throws Exception {
 
 		return _applyComponentServiceObjects(
-			_sampleSBResourceComponentServiceObjects,
+			_sampleSBAppResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			sampleSBResource -> sampleSBResource.getSampleSB(sampleSbId));
+			sampleSBAppResource -> sampleSBAppResource.getSamplesbSampleSb(
+				entityId));
 	}
 
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
@@ -86,15 +88,16 @@ public class Query {
 		}
 	}
 
-	private void _populateResourceContext(SampleSBResource sampleSBResource)
+	private void _populateResourceContext(
+			SampleSBAppResource sampleSBAppResource)
 		throws Exception {
 
-		sampleSBResource.setContextCompany(
+		sampleSBAppResource.setContextCompany(
 			CompanyLocalServiceUtil.getCompany(
 				CompanyThreadLocal.getCompanyId()));
 	}
 
-	private static ComponentServiceObjects<SampleSBResource>
-		_sampleSBResourceComponentServiceObjects;
+	private static ComponentServiceObjects<SampleSBAppResource>
+		_sampleSBAppResourceComponentServiceObjects;
 
 }
